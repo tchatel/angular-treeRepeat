@@ -15,8 +15,8 @@ There are 5 directives :
 
 * `tree`, that only publishes a controller ; it must be set on an element containing those with the other directives
 * `treeRepeat`, with exact same syntax as `ngRepeat`
-* `treeInsertChildren`, with an AngularJS expression that evaluates to the collection of children nodes
-       (used for next level of repeat)
+* `treeInsertChildren`, with an AngularJS expression that evaluates to the collection of children nodes,
+       used for next level of repeat
     * the same HTML element with `treeRepeat` directive is repeated against the children nodes
     * all the repeated elements are inserted into that element with `treeInsertChildren` directive
 * `treeDraggable`, to mark an element as draggable
