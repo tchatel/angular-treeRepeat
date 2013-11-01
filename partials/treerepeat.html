@@ -4,16 +4,19 @@
 </p>
 
 <ul tree>
-  <li tree-repeat="node in treeData">
-      <div><span class="icon"
-                 ng-class="{collapsed: node.collapsed, expanded: !node.collapsed}"
-                 ng-show = "node.children && node.children.length > 0"
-                 ng-click="node.collapsed = !node.collapsed"></span>
-           <a href="" ng-click="action(node)"><span class="label"
+    <li tree-repeat="node in treeData">
+        <div><span class="icon"
+                   ng-class="{collapsed: node.collapsed, expanded: !node.collapsed}"
+                   ng-show="node.children && node.children.length > 0"
+                   ng-click="node.collapsed = !node.collapsed"></span>
+           <a href="" ng-click="action(node)">
+             <span class="label"
                  ng-class="{folder: node.children && node.children.length > 0}"
-                 ng-bind="node.label"></span></a></div>
-      <ul ng-if="!node.collapsed && node.children && node.children.length > 0"
-          tree-insert-children="node.children || []"></ul>
-  </li>
+                 ng-bind="node.label"></span>
+           </a>
+        </div>
+        <ul ng-if="!node.collapsed && node.children && node.children.length > 0"
+            tree-insert-children="node.children || []"></ul>
+    </li>
 </ul>
 
