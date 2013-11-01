@@ -13,15 +13,18 @@ packaged itself in a ready to use directive._
 
 There are 5 directives :
 
-* `tree`, that only publish a controller ; it must be set on an element containing the other ones
+* `tree`, that only publishes a controller ; it must be set on an element containing those with the other directives
 * `treeRepeat`, with exact same syntax as `ngRepeat`
 * `treeInsertChildren`, with an AngularJS expression that evaluates to the collection of children nodes
-       (used for next level of repeat) ; the repeated templates are inserted into the element with `treeInsertChildren`
-       directive
-* `treeDraggable`, to mark an element as draggable ; it takes an expression, evaluated on the dragged node, the
-        value of which will be referenced as `$drag` in `tree-droppable` expression
-* `tree-droppable`, to mark a drag and drop target, with an expression which will be evaluated as an action, and where
-        `$drag` references the value of `treeDraggable` expression
+       (used for next level of repeat)
+    * the same HTML element with `treeRepeat` directive is repeated against the children nodes
+    * all the repeated elements are inserted into that element with `treeInsertChildren` directive
+* `treeDraggable`, to mark an element as draggable
+    * it takes an expression, evaluated on the dragged node, the value of which will be referenced as `$drag`
+        in `tree-droppable` expression
+* `tree-droppable`, to mark a drag and drop target
+    * it takes an expression which will be evaluated as an action, and where `$drag` references the value
+        of `treeDraggable` expression
 
 Sample template, with an action when a node is clicked :
 
