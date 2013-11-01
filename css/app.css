@@ -1,0 +1,39 @@
+#menu ul li {
+    display: inline-block;
+    padding: 5px 15px 5px 15px;
+    border-left: 2px solid grey;
+}
+#menu ul li:first-child {
+    border-left: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+.icon {
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+}
+.expanded {
+    background-image: url(../img/expanded.png);
+}
+.collapsed {
+    background-image: url(../img/collapsed.png);
+}
+
+.label {
+    color: green;
+}
+.label.folder {
+    color: darkmagenta;
+}
+
+ul .tree-drag > div > span.label {
+    background-color: lightsalmon;
+}
+.tree-drag-over > div > span.label {
+    background-color: darkseagreen;
+}
