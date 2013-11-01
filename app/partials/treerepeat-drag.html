@@ -1,0 +1,20 @@
+<p id="expand-collapse-all">
+    <a href="" ng-click="expandAll()">Expand all</a>
+    <a href="" ng-click="collapseAll()">Collapse all</a>
+</p>
+
+<ul tree>
+  <li tree-repeat="node in treeData" tree-draggable="{node: node, parent: $parent.node}" tree-droppable="drop(node, $drag.node, $drag.parent)">
+      <div><span class="icon"
+                 ng-class="{collapsed: node.collapsed, expanded: !node.collapsed}"
+                 ng-show = "node.children && node.children.length > 0"
+                 ng-click="node.collapsed = !node.collapsed"></span>
+           <span class="label"
+                 ng-class="{folder: node.children && node.children.length > 0}"
+                 ng-bind="node.label"
+                 ></span></div>
+      <ul ng-if="!node.collapsed && node.children && node.children.length > 0"
+          tree-insert-children="node.children || []"></ul>
+  </li>
+</ul>
+
