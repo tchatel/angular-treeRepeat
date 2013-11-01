@@ -2,113 +2,113 @@
 
 (function () {
 
-angular.module('app.controllers', [])
+    angular.module('app.controllers', [])
 
-    .controller('MenuCtrl', ['$scope', '$route', 'menu', function($scope, $route, menu) {
-        $scope.menu = menu;
-        $scope.getCurrentMenuItem = function() {
-            return $route.current && $route.current.locals && $route.current.locals.menuItem;
-        }
-    }])
-
-
-    .controller('TreeCtrlSmall', ['$scope', '$http', function($scope, $http) {
-        addExpandAllCollapseAll($scope);
-        $scope.treeData = null;
-        $http.get("data/smalltree.js").success(function (data) {
-            $scope.treeData = data;
-        });
-        $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
-        };
-    }])
-
-    .controller('TreeCtrlMedium', ['$scope', '$http', function($scope, $http) {
-        addExpandAllCollapseAll($scope);
-        $scope.treeData = null;
-        $http.get("data/mediumtree.js").success(function (data) {
-            $scope.treeData = data;
-        });
-        $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
-        };
-    }])
-
-    .controller('TreeCtrlDeep', ['$scope', '$http', function($scope, $http) {
-        addExpandAllCollapseAll($scope);
-        $scope.treeData = null;
-        $http.get("data/deeptree.js").success(function (data) {
-            $scope.treeData = data;
-        });
-        $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
-        };
-    }])
-
-    .controller('TreeCtrlBig', ['$scope', '$http', function($scope, $http) {
-        addExpandAllCollapseAll($scope);
-        $scope.treeData = null;
-        $http.get("data/bigtree.js").success(function (data) {
-            $scope.treeData = data;
-        });
-        $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
-        };
-    }])
-
-    .controller('TreeCtrlBigCollapsed', ['$scope', '$http', function($scope, $http) {
-        addExpandAllCollapseAll($scope);
-        $scope.treeData = null;
-        $http.get("data/bigtree.js").success(function (data) {
-            $scope.treeData = data;
-            $scope.collapseAll();
-        });
-        $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
-        };
-    }])
-
-    .controller('TreeCtrlDragMedium', ['$scope', '$http', function($scope, $http) {
-        addExpandAllCollapseAll($scope);
-        $scope.treeData = null;
-        $http.get("data/mediumtree.js").success(function (data) {
-            $scope.treeData = data;
-        });
-        $scope.drop = function (targetNode, sourceNode, sourceParentNode) {
-            var children = sourceParentNode.children;
-            for (var i = 0 ; i < children.length ; i++) {
-                if (children[i] == sourceNode) {
-                    children.splice(i, 1);
-                    if (!targetNode.children) {
-                        targetNode.children = [];
-                    }
-                    targetNode.children.push(sourceNode);
-                    break;
-                }
+        .controller('MenuCtrl', ['$scope', '$route', 'menu', function($scope, $route, menu) {
+            $scope.menu = menu;
+            $scope.getCurrentMenuItem = function() {
+                return $route.current && $route.current.locals && $route.current.locals.menuItem;
             }
-        };
-    }])
+        }])
 
-    .controller('TreeCtrlDragDeep', ['$scope', '$http', function($scope, $http) {
-        addExpandAllCollapseAll($scope);
-        $scope.treeData = null;
-        $http.get("data/deeptree.js").success(function (data) {
-            $scope.treeData = data;
-        });
-        $scope.drop = function (targetNode, sourceNode, sourceParentNode) {
-            var children = sourceParentNode.children;
-            for (var i = 0 ; i < children.length ; i++) {
-                if (children[i] == sourceNode) {
-                    children.splice(i, 1);
-                    if (!targetNode.children) {
-                        targetNode.children = [];
+
+        .controller('TreeCtrlSmall', ['$scope', '$http', function($scope, $http) {
+            addExpandAllCollapseAll($scope);
+            $scope.treeData = null;
+            $http.get("data/smalltree.js").success(function (data) {
+                $scope.treeData = data;
+            });
+            $scope.action = function(node) {
+                alert("Action on node : " + node.label);
+            };
+        }])
+
+        .controller('TreeCtrlMedium', ['$scope', '$http', function($scope, $http) {
+            addExpandAllCollapseAll($scope);
+            $scope.treeData = null;
+            $http.get("data/mediumtree.js").success(function (data) {
+                $scope.treeData = data;
+            });
+            $scope.action = function(node) {
+                alert("Action on node : " + node.label);
+            };
+        }])
+
+        .controller('TreeCtrlDeep', ['$scope', '$http', function($scope, $http) {
+            addExpandAllCollapseAll($scope);
+            $scope.treeData = null;
+            $http.get("data/deeptree.js").success(function (data) {
+                $scope.treeData = data;
+            });
+            $scope.action = function(node) {
+                alert("Action on node : " + node.label);
+            };
+        }])
+
+        .controller('TreeCtrlBig', ['$scope', '$http', function($scope, $http) {
+            addExpandAllCollapseAll($scope);
+            $scope.treeData = null;
+            $http.get("data/bigtree.js").success(function (data) {
+                $scope.treeData = data;
+            });
+            $scope.action = function(node) {
+                alert("Action on node : " + node.label);
+            };
+        }])
+
+        .controller('TreeCtrlBigCollapsed', ['$scope', '$http', function($scope, $http) {
+            addExpandAllCollapseAll($scope);
+            $scope.treeData = null;
+            $http.get("data/bigtree.js").success(function (data) {
+                $scope.treeData = data;
+                $scope.collapseAll();
+            });
+            $scope.action = function(node) {
+                alert("Action on node : " + node.label);
+            };
+        }])
+
+        .controller('TreeCtrlDragMedium', ['$scope', '$http', function($scope, $http) {
+            addExpandAllCollapseAll($scope);
+            $scope.treeData = null;
+            $http.get("data/mediumtree.js").success(function (data) {
+                $scope.treeData = data;
+            });
+            $scope.drop = function (targetNode, sourceNode, sourceParentNode) {
+                var children = sourceParentNode.children;
+                for (var i = 0 ; i < children.length ; i++) {
+                    if (children[i] == sourceNode) {
+                        children.splice(i, 1);
+                        if (!targetNode.children) {
+                            targetNode.children = [];
+                        }
+                        targetNode.children.push(sourceNode);
+                        break;
                     }
-                    targetNode.children.push(sourceNode);
-                    break;
                 }
-            }
-        };
-    }])
+            };
+        }])
+
+        .controller('TreeCtrlDragDeep', ['$scope', '$http', function($scope, $http) {
+            addExpandAllCollapseAll($scope);
+            $scope.treeData = null;
+            $http.get("data/deeptree.js").success(function (data) {
+                $scope.treeData = data;
+            });
+            $scope.drop = function (targetNode, sourceNode, sourceParentNode) {
+                var children = sourceParentNode.children;
+                for (var i = 0 ; i < children.length ; i++) {
+                    if (children[i] == sourceNode) {
+                        children.splice(i, 1);
+                        if (!targetNode.children) {
+                            targetNode.children = [];
+                        }
+                        targetNode.children.push(sourceNode);
+                        break;
+                    }
+                }
+            };
+        }])
 
 
     function addExpandAllCollapseAll($scope) {
