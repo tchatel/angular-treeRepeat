@@ -1,7 +1,7 @@
 # Recursive repeater for AngularJS
 ## or how to build a tree by hand
 
-Demo is here : [http://tchatel.github.io/angular-treeRepeat/]
+Demo is here : http://tchatel.github.io/angular-treeRepeat/
 
 
 This `treeRepeat` directive is derived from `ngRepeat`, to perform a recursive repeat of an HTML element
