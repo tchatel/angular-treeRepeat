@@ -19,7 +19,7 @@ angular.module('app.controllers', [])
             $scope.treeData = data;
         });
         $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
+            alert("Action on node : " + node.label);
         };
     }])
 
@@ -30,7 +30,7 @@ angular.module('app.controllers', [])
             $scope.treeData = data;
         });
         $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
+            alert("Action on node : " + node.label);
         };
     }])
 
@@ -41,7 +41,7 @@ angular.module('app.controllers', [])
             $scope.treeData = data;
         });
         $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
+            alert("Action on node : " + node.label);
         };
     }])
 
@@ -52,7 +52,7 @@ angular.module('app.controllers', [])
             $scope.treeData = data;
         });
         $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
+            alert("Action on node : " + node.label);
         };
     }])
 
@@ -64,7 +64,7 @@ angular.module('app.controllers', [])
             $scope.collapseAll();
         });
         $scope.action = function(node) {
-            alert("Action sur le noeud : " + node.label);
+            alert("Action on node : " + node.label);
         };
     }])
 
