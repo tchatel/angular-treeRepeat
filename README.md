@@ -4,7 +4,7 @@
 Demo is here : [http://tchatel.github.io/angular-treeRepeat/]
 
 
-This **`treeRepeat`** directive is derived from `ngRepeat`, to perform a recursive repeat of an HTML element
+This `treeRepeat` directive is derived from `ngRepeat`, to perform a recursive repeat of an HTML element
 on a hierarchical data structure.
 
 _The idea is not to have a monolithic full tree component, but a low level recursive repeater which allow to build a
@@ -25,7 +25,7 @@ There are 5 directives :
 
 Sample template, with an action when a node is clicked :
 
-```JavaScript
+```HTML
 <ul tree>
   <li tree-repeat="node in treeData">
       <div><span class="icon"
@@ -47,7 +47,7 @@ Sample template, with an action when a node is clicked :
 
 Sample template, with drag and drog support :
 
-```JavaScript
+```HTML
 <ul tree>
   <li tree-repeat="node in treeData" tree-draggable="{node: node, parent: $parent.node}"
                                      tree-droppable="drop(node, $drag.node, $drag.parent)">
