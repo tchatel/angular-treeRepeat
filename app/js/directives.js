@@ -2,6 +2,7 @@
 
 angular.module('app.directives', [])
 
+    // Main directive, that just publish a controller
     .directive('tree', function ($parse, $animate) {
         return {
             restrict: 'EA',
@@ -165,18 +166,6 @@ angular.module('app.directives', [])
 
         // ---------- Add watch, extracted into a function to call it not only on the element but also on its children ----------
 
-        // Thierry:
-        // [à fournir] $scope
-        // [à fournir] $element
-        // [fournir objet vide] _lastBlockMap : map pour conserver les éléments de l'évaluation précédente
-        // [le même] valueIdentifier
-        // [null] keyIdentifier
-        // [node.children || []] rhs : expression à surveiller dans le watch (ie le tableau)
-        // [TODO] trackByIdExpFn
-        // [TODO] trackByIdArrayFn
-        // [TODO] trackByIdObjFn
-        // [le même] linker
-        // [TODO] expression : seulement pour les messages d'erreur
         function addRepeatWatch($scope, $element, _lastBlockMap, valueIdentifier, keyIdentifier,
                                 rhs, trackByIdExpFn, trackByIdArrayFn, trackByIdObjFn, linker, expression) {
             var lastBlockMap = _lastBlockMap;
@@ -371,7 +360,7 @@ angular.module('app.directives', [])
                         rhs, trackByIdExpFn, trackByIdArrayFn, trackByIdObjFn, linker, expression);
 
                     ctrl.init(function ($scope, $element, collection) {
-                        addRepeatWatch($scope, $element, /*lastBlockMap*/ {}, valueIdentifier, /*keyIdentifier*/ null,
+                        addRepeatWatch($scope, $element, /*lastBlockMap*/ {}, valueIdentifier, keyIdentifier,
                             collection, trackByIdExpFn, trackByIdArrayFn, trackByIdObjFn, linker, expression)
                     });
                 };
@@ -405,7 +394,7 @@ angular.module('app.directives', [])
                     function(e) {
                         if (e.stopPropagation) e.stopPropagation();
                         e.dataTransfer.effectAllowed = 'move';
-                        e.dataTransfer.setData('Text', element.text());
+                        e.dataTransfer.setData('Text', 'nothing'); // Firefox requires some data
                         element.addClass('tree-drag');
                         ctrl.dragData = $parse(attrs.treeDraggable)(scope);
                         return false;
@@ -449,6 +438,8 @@ angular.module('app.directives', [])
                     function(e) {
                         if (e.stopPropagation) { e.stopPropagation(); }
                         element.addClass('tree-drag-over');
+                        // allow drop
+                        if (e.preventDefault) { e.preventDefault(); }
                         return false;
                     },
                     false
