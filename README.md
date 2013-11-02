@@ -48,7 +48,7 @@ Sample template, with an action when a node is clicked :
 ```
 
 
-Sample template, with drag and drog support :
+Sample template, with drag and drop support :
 
 ```HTML
 <ul tree>
