@@ -3,7 +3,7 @@
 angular.module('app.directives', [])
 
     // Main directive, that just publish a controller
-    .directive('tree', function ($parse, $animate) {
+    .directive('frangTree', function ($parse, $animate) {
         return {
             restrict: 'EA',
             controller: function($scope, $element) {
@@ -15,7 +15,7 @@ angular.module('app.directives', [])
         };
     })
 
-    .directive('treeRepeat', function ($parse, $animate) {
+    .directive('frangTreeRepeat', function ($parse, $animate) {
 
         // ---------- Some necessary internal functions from angular.js ----------
 
@@ -304,10 +304,10 @@ angular.module('app.directives', [])
             transclude: 'element',
             priority: 1000,
             terminal: true,
-            require: '^tree',
+            require: '^frangTree',
             compile: function(element, attr, linker) {
                 return function($scope, $element, $attr, ctrl){
-                    var expression = $attr.treeRepeat;
+                    var expression = $attr.frangTreeRepeat;
                     var match = expression.match(/^\s*(.+)\s+in\s+(.*?)\s*(\s+track\s+by\s+(.+)\s*)?$/),
                         trackByExp, trackByExpGetter, trackByIdExpFn, trackByIdArrayFn, trackByIdObjFn,
                         lhs, rhs, valueIdentifier, keyIdentifier,
@@ -369,25 +369,26 @@ angular.module('app.directives', [])
         };
     })
 
-    .directive('treeInsertChildren', function () {
+    .directive('frangTreeInsertChildren', function () {
         return {
             restrict: 'EA',
-            require: '^tree',
+            require: '^frangTree',
             link: function (scope, element, attrs, ctrl) {
                 var comment = document.createComment('treeRepeat');
                 element.append(comment);
 
-                ctrl.insertChildren(scope, angular.element(comment), attrs.treeInsertChildren);
+                ctrl.insertChildren(scope, angular.element(comment), attrs.frangTreeInsertChildren);
             }
         };
     })
 
-    .directive('treeDraggable', function($parse) {
+    .directive('frangTreeDrag', function($parse) {
         return {
             restrict: 'A',
-            require: '^tree',
+            require: '^frangTree',
             link: function(scope, element, attrs, ctrl) {
                 var el = element[0];
+                var parsedDrag = $parse(attrs.frangTreeDrag);
                 el.draggable = true;
                 el.addEventListener(
                     'dragstart',
@@ -396,7 +397,7 @@ angular.module('app.directives', [])
                         e.dataTransfer.effectAllowed = 'move';
                         e.dataTransfer.setData('Text', 'nothing'); // Firefox requires some data
                         element.addClass('tree-drag');
-                        ctrl.dragData = $parse(attrs.treeDraggable)(scope);
+                        ctrl.dragData = parsedDrag(scope);
                         return false;
                     },
                     false
@@ -415,20 +416,24 @@ angular.module('app.directives', [])
         };
     })
 
-    .directive('treeDroppable', function($parse) {
+    .directive('frangTreeDrop', function($parse) {
         return {
             restrict: 'A',
-            require: '^tree',
+            require: '^frangTree',
             link: function(scope, element, attrs, ctrl) {
                 var el = element[0];
+                var parsedDrop = $parse(attrs.frangTreeDrop);
+                var parsedAllowDrop = $parse(attrs.frangTreeAllowDrop || 'true');
                 el.addEventListener(
                     'dragover',
                     function(e) {
-                        if (e.stopPropagation) { e.stopPropagation(); }
-                        e.dataTransfer.dropEffect = 'move';
-                        element.addClass('tree-drag-over');
-                        // allow drop
-                        if (e.preventDefault) { e.preventDefault(); }
+                        if (parsedAllowDrop(scope, {dragData: ctrl.dragData})) {
+                            if (e.stopPropagation) { e.stopPropagation(); }
+                            e.dataTransfer.dropEffect = 'move';
+                            element.addClass('tree-drag-over');
+                            // allow drop
+                            if (e.preventDefault) { e.preventDefault(); }
+                        }
                         return false;
                     },
                     false
@@ -436,10 +441,12 @@ angular.module('app.directives', [])
                 el.addEventListener(
                     'dragenter',
                     function(e) {
-                        if (e.stopPropagation) { e.stopPropagation(); }
-                        element.addClass('tree-drag-over');
-                        // allow drop
-                        if (e.preventDefault) { e.preventDefault(); }
+                        if (parsedAllowDrop(scope, {dragData: ctrl.dragData})) {
+                            if (e.stopPropagation) { e.stopPropagation(); }
+                            element.addClass('tree-drag-over');
+                            // allow drop
+                            if (e.preventDefault) { e.preventDefault(); }
+                        }
                         return false;
                     },
                     false
@@ -447,8 +454,10 @@ angular.module('app.directives', [])
                 el.addEventListener(
                     'dragleave',
                     function(e) {
-                        if (e.stopPropagation) { e.stopPropagation(); }
-                        element.removeClass('tree-drag-over');
+                        if (parsedAllowDrop(scope, {dragData: ctrl.dragData})) {
+                            if (e.stopPropagation) { e.stopPropagation(); }
+                            element.removeClass('tree-drag-over');
+                        }
                         return false;
                     },
                     false
@@ -456,13 +465,15 @@ angular.module('app.directives', [])
                 el.addEventListener(
                     'drop',
                     function(e) {
-                        if (e.stopPropagation) { e.stopPropagation(); }
-                        element.removeClass('tree-drag-over');
-                        scope.$apply(function () {
-                            $parse(attrs.treeDroppable)(scope, {$drag: ctrl.dragData});
-                        });
-                        ctrl.dragData = null;
-                        if (e.preventDefault) { e.preventDefault(); }
+                        if (parsedAllowDrop(scope, {dragData: ctrl.dragData})) {
+                            if (e.stopPropagation) { e.stopPropagation(); }
+                            element.removeClass('tree-drag-over');
+                            scope.$apply(function () {
+                                parsedDrop(scope, {dragData: ctrl.dragData});
+                            });
+                            ctrl.dragData = null;
+                            if (e.preventDefault) { e.preventDefault(); }
+                        }
                         return false;
                     },
                     false
